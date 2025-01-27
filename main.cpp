@@ -80,9 +80,38 @@ int main()
                 cout << M[k].determinant() << '\n';
             }
             break;
+
             case '3':
+            if(ilosc<2)
+            {
+                cout << "Nie ma na tyle macierzy\n";
+                break;
+            }
+            cout << "----------------------\n";
+            cout << "1. Dodawanie macierzy\n";
+            cout << "2. Odejmowanie macierzy\n";
+            cout << "3. Mnozenie macierzy\n";
+            char ch;
+            int k, l;
+            cin >> ch;
+            print_allM();
+            cout << "wybierz macierze (numerowane od 0): ";
+            cin >> k >> l;
+            switch(ch)
+            {
+                case '1':
+                (M[k] + M[l]).m_print();
+                break;
+                case '2':
+                (M[k] - M[l]).m_print();
+                break;
+                case '3':
+                (M[k] * M[l]).m_print();
+                break;
+            }
             break;
             case '4':
+            // TODO
             break;
             default:
             cout << "niepoprawna komenda \n";
