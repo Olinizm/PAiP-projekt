@@ -2,8 +2,8 @@
 //Definicja macierzy
 class Matrix
 {
-    int n; //wielkość macierzy
-	double *values[]; //wartości w macierzy
+    int n,m; //wielkość macierzy
+	double **values; //wartości w macierzy
 
 public:
 
@@ -11,10 +11,10 @@ public:
 
     //tworzy macierz jednościową 3x3
 	Matrix();
-    //tworzy macierz jednościową nxn
-	Matrix(int n);
-    //tworzy macierz nxn z wartościami w tablicy 2-wymiarowej
-	Matrix(int n, double**);
+    //tworzy macierz nxm jeśli n=m jest ona jednościowa
+	Matrix(int n, int m);
+    //tworzy macierz nxm z wartościami w tablicy 2-wymiarowej
+	Matrix(int n, int m, double**);
     //destruktor
 	~Matrix();
 

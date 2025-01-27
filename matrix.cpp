@@ -12,36 +12,40 @@ int m_error(std::string message)
 Matrix::Matrix()
 {
 	n = 3;
+    m = 3;
+    values = new double*[n];
     for(int i = 0; i < n; i++)
     {
-        values[i] = new double [n];
-        for(int j = 0; j < n; j++)
+        values[i] = new double [m];
+        for(int j = 0; j < m; j++)
         {
             values[i][j] = 0;
             if(i == j) values[i][j] = 1;
         }
     }
 }
-Matrix::Matrix(int m)
+Matrix::Matrix(int nn, int mm)
 {
-    n = m;
+    n = nn;
+    m = mm;
     for(int i = 0; i < n; i++)
     {
-        values[i] = new double [n];
-        for(int j = 0; j < n; j++)
+        values[i] = new double [m];
+        for(int j = 0; j < m; j++)
         {
             values[i][j] = 0;
             if(i == j) values[i][j] = 1;
         }
     }
 }
-Matrix::Matrix(int m, double** a)
+Matrix::Matrix(int nn, int mm, double** a)
 {
-    n = m;
+    n = nn;
+    m = mm;
     for(int i = 0; i < n; i++)
     {
         values[i] = new double [n];
-        for(int j = 0; j < n; j++)
+        for(int j = 0; j < m; j++)
         {
             values[i][j] = a[i][j];
         }
@@ -53,6 +57,7 @@ Matrix::~Matrix()
     {
         delete [] values[i];
     }
+    delete [] values;
 }
 
 //.section HELPER FUNCTIONS
@@ -85,6 +90,7 @@ void Matrix::m_print()
 //section .INCREMENTATION .DECREMENTATION
 Matrix& Matrix::operator++ ()
 {
+    if(n != m) return *this;
 	for(int i = 0; i < n; i++)
     {
         for(int j = 0; j < n; j++)
@@ -96,6 +102,7 @@ Matrix& Matrix::operator++ ()
 }
 Matrix Matrix::operator++ (int)
 {
+    if(n != m) return *this;
 	Matrix tmp;
     for(int i = 0; i < n; i++)
     {
@@ -109,6 +116,7 @@ Matrix Matrix::operator++ (int)
 }
 Matrix& Matrix::operator-- ()
 {
+    if(n != m) return *this;
 	for(int i = 0; i < n; i++)
     {
         for(int j = 0; j < n; j++)
@@ -120,6 +128,7 @@ Matrix& Matrix::operator-- ()
 }
 Matrix Matrix::operator-- (int)
 {
+    if(n != m) return *this;
 	Matrix tmp;
     for(int i = 0; i < n; i++)
     {
@@ -138,7 +147,7 @@ Matrix& Matrix::operator=(Matrix a)
     for(int i = 0; i < n; i++)
     {
         values[i] = new double [n];
-        for(int j = 0; j < n; j++)
+        for(int j = 0; j < m; j++)
         {
             values[i][j] = a.values[i][j];
         }
@@ -152,13 +161,13 @@ Matrix Matrix::operator+(Matrix a)
 	if(a.n != n) 
     {
         m_error("uncompatible matrixes");
-        return 1;
+        return *this;
     }
-    Matrix result(n);
+    Matrix result(n,m);
     result = *this;
     for(int i = 0; i < n; i++)
     {
-        for(int j = 0; j < n; j++)
+        for(int j = 0; j < m; j++)
         {
             result.values[i][j] += a.values[i][j];
         }
@@ -167,11 +176,11 @@ Matrix Matrix::operator+(Matrix a)
 }
 Matrix Matrix::operator+(int a)
 {
-	Matrix result(n);
+	Matrix result(n, m);
     result = *this;
     for(int i = 0; i < n; i++)
     {
-        for(int j = 0; j < n; j++)
+        for(int j = 0; j < m; j++)
         {
             if(i == j) result.values[i][j] += a;
         }
@@ -182,16 +191,16 @@ Matrix Matrix::operator+(int a)
 //section .SUBSTRACTION
 Matrix Matrix::operator-(Matrix a)
 {
-	if(a.n != n) 
+	if(a.n != n || a.m != m) 
     {
         m_error("uncompatible matrixes");
-        return 1;
+        return *this;
     }
-    Matrix result(n);
+    Matrix result(n, m);
     result = *this;
     for(int i = 0; i < n; i++)
     {
-        for(int j = 0; j < n; j++)
+        for(int j = 0; j < m; j++)
         {
             result.values[i][j] -= a.values[i][j];
         }
@@ -200,11 +209,11 @@ Matrix Matrix::operator-(Matrix a)
 }
 Matrix Matrix::operator-(int a)
 {
-	Matrix result(n);
+	Matrix result(n, m);
     result = *this;
     for(int i = 0; i < n; i++)
     {
-        for(int j = 0; j < n; j++)
+        for(int j = 0; j < m; j++)
         {
             if(i == j) result.values[i][j] -= a;
         }
