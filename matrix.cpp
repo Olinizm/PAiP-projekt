@@ -28,6 +28,7 @@ Matrix::Matrix(int nn, int mm)
 {
     n = nn;
     m = mm;
+    values = new double*[n];
     for(int i = 0; i < n; i++)
     {
         values[i] = new double [m];
@@ -227,3 +228,26 @@ Matrix Matrix::operator*(Matrix a)
 	return a;
 }
 
+double Matrix::determinant()
+{
+    double sum = 0;
+    for (int i = 0; i < m; i++)
+    {
+        double subsum = 1;
+        for(int j = 0; j < n; j++)
+        {
+            subsum *= values[j%n][(i+j)%m];
+        }
+        sum += subsum;
+    }
+    for (int i = 0; i < m; i++)
+    {
+        double subsum = 1;
+        for(int j = 0; j < n; j++)
+        {
+            subsum *= values[j%n][(m+m-j)%m];
+        }
+        sum -= subsum;
+    }
+    return sum;
+}
