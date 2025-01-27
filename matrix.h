@@ -2,7 +2,7 @@
 //Definicja macierzy
 class Matrix
 {
-    const int n; //wielkość macierzy
+    int n; //wielkość macierzy
 	double *values[]; //wartości w macierzy
 
 public:
@@ -18,8 +18,11 @@ public:
     //destruktor
 	~Matrix();
 
+
 //funkcje pomocnicze
 
+	//wpisywanie wartości do macierzy
+	void m_write();
     //wyświetla wartości w macierzy
 	void m_print(); 
     //wyświetla wartości w macierzy, ale ładniej wygląda w kodzie uwu
@@ -43,5 +46,9 @@ public:
 	Matrix operator- (int); 
 
 	Matrix operator* (Matrix); 
-	Matrix operator/ (Matrix); 
+
+	//odwracanie macierzy
+	void reverse();
+	//obliczanie wyznacznika
+	double determinant();
 };
