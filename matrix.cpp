@@ -225,7 +225,15 @@ Matrix Matrix::operator-(int a)
 //section .MULTIPLICATION
 Matrix Matrix::operator*(Matrix a)
 {
-	return a;
+    if(n != a.m && m != a.n)
+    {
+        m_error("niepoprawne wielkosci macierzy");
+        return *this;
+    }
+    int nn = (n > a.n)? n : a.n;
+    int mm = (m > a.m)? m : a.m;
+	Matrix result(nn,mm);
+    //TODO
 }
 
 double Matrix::determinant()
@@ -245,7 +253,7 @@ double Matrix::determinant()
         double subsum = 1;
         for(int j = 0; j < n; j++)
         {
-            subsum *= values[j%n][(m+m-j)%m];
+            subsum *= values[j%n][(m+m-j-1)%m];
         }
         sum -= subsum;
     }
