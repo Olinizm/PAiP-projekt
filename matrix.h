@@ -25,16 +25,14 @@ public:
 	void m_write();
     //wyświetla wartości w macierzy
 	void m_print(); 
-    //wyświetla wartości w macierzy, ale ładniej wygląda w kodzie uwu
-	friend void m_print(Matrix); 
 
 //operacje na macierzach
 
-    //zwiększa wartość macierzy o macierz jednościową
+    //zwiększa wartość macierzy o macierz jednościową 1
 	Matrix& operator++ ();
 	Matrix operator++ (int);
 
-    //zmniejsza wartość macierzy o macierz jednościową
+    //zmniejsza wartość macierzy o macierz jednościową 1
 	Matrix& operator-- (); 
 	Matrix operator-- (int); 
 
